@@ -33,6 +33,7 @@ import json
 import time
 import matplotlib.pyplot as plt
 
+#bag of words を作るクラス
 class Corpus:
 	def __init__(self, db, area):
 		self.db = db
@@ -40,10 +41,14 @@ class Corpus:
 		if area == 'tsukuba':
 			self.name_ja = u'つくば'
 			self.name_en = u'Tsukuba'
-			self.train_include = db.t_train2
-			self.train_exclude = db.s_train2
-			self.test_include = db.t_test2
-			self.test_exclude = db.s_test2
+			# self.train_include = db.t_train2
+			# self.train_exclude = db.s_train2
+			# self.test_include = db.t_test2
+			# self.test_exclude = db.s_test2
+			self.train_include = db.train_include_tokyo_23
+			self.train_exclude = db.train_exclude_tokyo_23
+			self.test_include = db.test_include_tokyo_23
+			self.test_exclude = db.test_exclude_tokyo_23
 		elif area == 'tokyo_23':
 			self.name_ja = u'東京'
 			self.name_en = u'Tokyo'
@@ -213,6 +218,9 @@ class Corpus:
 		return self.corpus(tweets)
 
 	def train_clf(self, clf_str, clf_param, part):
+		#training data ４つあったのをシャッフルしてる
+		#el genero 4 training data por cada lugar
+		#por ej tweetGeneradoEnTsukuba, tweetGeneradoFueraDeTsukuba
 		tweets_inside = self.get_tweets(self.train_include, part)
 		tweets_outside = self.get_tweets(self.train_exclude, part)
 		tweets_inside = tweets_inside + self.get_tweets(self.test_include, part)
@@ -221,6 +229,7 @@ class Corpus:
 		random_indices_outside = list(range(len(tweets_outside)))
 		random.shuffle(random_indices_inside)
 		random.shuffle(random_indices_outside)
+		#log fileみたいに使った順番を保存している
 		f = open('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/random_indices_'+self.area+'_'+clf_str+'_'+str(clf_param)+'_'+part+'.json', 'w')
 		json.dump({'inside': random_indices_inside, 'outside': random_indices_outside}, f)
 		f.close()
@@ -242,12 +251,16 @@ class Corpus:
 		#dictionary.save_as_text('dictionary_'+self.area+'_17000_adjective_verb.txt')
 		#dictionary.save_as_text('dictionary_'+self.area+'_17000_noun.txt')
 		#dictionary.save_as_text('dictionary_'+self.area+'_city_17000_'+part+'.txt')
+		#dictionaryはこの単語と現れた単語数が格納されている
 		if not os.path.isdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary'):
 			try:
 				os.mkdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary')
 			except Exception as e:
 				print(str(e))
 		dictionary.save_as_text('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary/dictionary_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + clf_str + '_' + str(clf_param) + '.txt')
+#この作られたdictionaryからuserごとにまとめたデータセットへ適用する。
+#そのuserが発したtweetのなかにdictionaryにある言葉があればbagofwordsに追加される（？）
+
 		self.dictionary = dictionary
 		#dictionary = corpora.Dictionary(tweets_inside)
 		#dictionary.filter_extremes(no_below=10, no_above=0.5)
@@ -300,6 +313,7 @@ class Corpus:
 		#classifier = SVC(kernel='linear')
 		#classifier = SVC(kernel='rbf')
 		classifier.fit(bow_list_train, labels_train)
+		#ここで学習モデルを作る
 		if not os.path.isdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model'):
 			try:
 				os.mkdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model')
@@ -420,7 +434,7 @@ class Corpus:
 		print('area: ' + self.area + ', classifier: ' + clf_str + ', params: ' + str(clf_param) + ', part: ' + part)
 		print('Mean Squared Error: ' + str(sum(squared_error)/len(squared_error)))
 
-
+#学習データは作られてるやつを使って分類している
 def make_classifier():
 	f = open('exp_setting.json', 'r')
 	setting = json.load(f)

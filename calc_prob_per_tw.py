@@ -7,6 +7,7 @@ from gensim import corpora, matutils,models
 import time, csv, json
 from sklearn.externals import joblib
 
+#モデルとdictionaryを作った後にprobabilityを計算する
 months = {}
 for i ,v in enumerate(calendar.month_abbr):
 	months[v] = i

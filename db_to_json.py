@@ -1,5 +1,7 @@
 import pymongo, io, sys, os, json
-
+#足りないデータをmongodbから出力する
+#ツイートの確率だけが入ってるデータを出力
+#京都から発したであろうユーザーのツイートの確率
 client = pymongo.MongoClient('localhost', 27017)
 db = client.Tweets
 #co = db.tweets_per_user2#_long

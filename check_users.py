@@ -38,6 +38,7 @@ def lookup():
         else:
             time.sleep(1)
 
+#geotag付きのユーザーから実際に反応があるユーザー（alived user）のリストを作る
 def make_existing_user_list():
     client = pymongo.MongoClient('localhost', 27017)
     db = client.Tweets

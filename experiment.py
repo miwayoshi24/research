@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import traceback
 import pymongo
@@ -19,7 +20,7 @@ def categorical_draw(probs):
 		cum_prob += v
 		if cum_prob > z:
 			return i
-	#最後のアームを返す
+#最後のアームを返す
 	return i
 
 def get_follow_users_by_epsilon_greedy(i, gamma, ep, K, area, follow_list_to_calc, reward_list_to_calc, user_list):
@@ -315,6 +316,7 @@ def get_follow_users_by_epsilon_alpha_greedy_dynamic(i, gamma, epsilon_plus_alph
 				break
 	return follow_list, flag_followed_next
 
+#報酬の計算
 def get_result_of_experiments(experiment_id, K, test_period, gamma, total_W, area, q, user_list, following, blacklist, setting):
 	directory_for_follow_list = setting['directory_for_follow_list']
 	mode = setting['mode']
@@ -362,9 +364,9 @@ def get_result_of_experiments(experiment_id, K, test_period, gamma, total_W, are
 			top_follow = None
 
 			if test_period == 'short':
-				f = open('data/user_id_to_data_for_prob_' + area + '_short.json', 'r')
+				f = open('/var/lib/mongodb/data/user_id_to_data_for_prob_' + area + '_short.json', 'r')
 			elif test_period == 'long':
-				f = open('data/user_id_to_data_for_prob_' + area + '_long.json', 'r')
+				f = open('/var/lib/mongodb/data/user_id_to_data_for_prob_' + area + '_long.json', 'r')
 			user_id_to_data_for_prob_dic = json.load(f)
 			f.close()
 			user_id_to_data_for_prob = user_id_to_data_for_prob_dic.items()
@@ -374,7 +376,7 @@ def get_result_of_experiments(experiment_id, K, test_period, gamma, total_W, are
 				sum_t = 0
 				sum_f = 0
 				prob_dic = {}
-
+#タイムウィンドウごとに1000人のユーザを取ってくる関数　
 				if m == 'epsilon_greedy':
 					time_follow, flag_followed = get_follow_users_by_epsilon_greedy(i, gamma, p['epsilon'], K, area, follow_list_to_calc, reward_list_to_calc, user_list)
 				elif m == 'random':
@@ -454,6 +456,8 @@ def get_result_of_experiments(experiment_id, K, test_period, gamma, total_W, are
 
 			writer_tr.writerows(follow_list)
 
+#main program
+
 def main():
 	start_exp_id = int(sys.argv[1])
 	n_exp = int(sys.argv[2])
@@ -494,14 +498,14 @@ def main():
 
 	user_list = []
 	if test_period == 'short':
-		f = open('data/user_list.json', 'r')
+		f = open('/var/lib/mongodb/data/user_list.json', 'r')
 	elif test_period == 'long':
-		f = open('data/user_list_long.json', 'r')
+		f = open('/var/lib/mongodb/data/user_list_long.json', 'r')
 	user_list = json.load(f)
 	f.close()
 	print(len(user_list))
 
-	f = open('data/blacklist.json', 'r')
+	f = open('/var/lib/mongodb/data/blacklist.json', 'r')
 	blacklist = json.load(f)
 	f.close()
 	for i, black in enumerate(blacklist):
@@ -511,9 +515,9 @@ def main():
 	print(len(user_list))
 
 	if test_period == 'short':
-		f = open('data/link.json', 'r')
+		f = open('/var/lib/mongodb/data/link.json', 'r')
 	elif test_period == 'long':
-		f = open('data/link_long.json', 'r')
+		f = open('/var/lib/mongodb/data/link_long.json', 'r')
 	following = json.load(f)
 	f.close()
 
@@ -552,7 +556,7 @@ def main():
 				count -= 1
 				if count == 0:
 					break
-		q = float(q_count)/100000
+		q = float(q_count)/100000 #tsukubaから発信されたツイートの割合を計算
 		print(q)
 
 		for experiment_id in experiment_ids:

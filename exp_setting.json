@@ -5,6 +5,8 @@
 "test_period_comment" : "short または long",
 "test_period" : "short",
 "directory_for_follow_list" : "follow_list/",
+"directory_for_result_n_tweets" : "result_n_tweets/",
+"directory_for_result_recall" : "result_recall/",
 "mode" : ["random", "amount_of_tweets", "6TWStatistics", "18TWStatistics", "epsilon_greedy", "epsilon_alpha_greedy_static", "epsilon_alpha_greedy_dynamic"],
 "param" : {
 	"epsilon" : [0.3, 0.5, 0.7],

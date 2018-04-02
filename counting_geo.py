@@ -5,6 +5,7 @@ import os
 import sys
 from collections import Counter
 
+#geotag 付きのツイートをユーザーごと、ファイルごとにカウントする
 def count_geo_per_file():
     f = open('setting.json', 'r')
     setting = json.load(f)
@@ -42,7 +43,7 @@ def count_geo_per_file():
             print (('elapsed_time: {0} [sec]'.format(elapsed_time)))
         except Exception as e:
             print(e)
-
+#１万６千ファイルのツイート数をカウント　geotag付きのみ　（上の結果のまとめ）
 def sum_count_geo():
     id_count = {}
     for i in range(16285):
@@ -63,8 +64,9 @@ def sum_count_geo():
     json.dump(id_count, f)
     f.close()
 
+#geotag付きのユーザーを選出
 def sellect_top_geo_users():
-    n_top_users = 30000
+    n_top_users = 30000　#３つアカウントがあったから３万とれた。ここからさらに消えたユーザーを取るためもっと余裕を持った数を入れるのがおすすめ
     limmit_n_geo_tweets = 2000
     f = open('data/geo_user_count/sum.json', 'r')
     for line in f:
