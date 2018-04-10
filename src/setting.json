@@ -1,0 +1,23 @@
+{
+"api_key" : "rk6uWzd0enV81iRECOMeUz7fI",
+"api_secret" : "gXNeJsSAAijf6iu437yLV66V0pvMOXLjlQ3voLj3XRY2IOFvLg",
+"access_key" : "853998884539867136-NUwKXei7K1y4HNLEOtPACo8G8lYN0vA",
+"access_secret" : "8wOO1cY8HLrM4A1QFh7wMwFbznYaNID77dDvzfvNUE9Ns",
+
+"api_key2" : "jB4EYZ5OvRyDGsWbrrP502oME",
+"api_secret2" : "CfCgC4MhaAw6PQJfVLi3aRsujhx1Z8LxinxwhYQgK5oj9w1DzZ",
+"access_key2" : "861150161208197120-AWnRW82agwMzQViGLsalCl5t3OwyYcy",
+"access_secret2" : "W409nnK5XNrn6WBEaAQy7QgLNO0TYbgIKYDtp9GSW0KV6",
+
+"api_key3" : "s4QWbwDtfCDLBOdxSRrBMMJpz",
+"api_secret3" : "C92gt3QW3W7WqroA6xiNyGKRW103P4JXlKTS1PuLFSZjcdkNvk",
+"access_key3" : "875620891853373444-82s5vmhr9WTBLM7fraM258Ta9Hoq2my",
+"access_secret3" : "sT0xxeHHLOlP9rYdlOEmOAOg3wsLflAu8tMAr6b8OujPd",
+
+"sample_url" : "https://stream.twitter.com/1.1/statuses/sample.json",
+"filter_url" : "https://stream.twitter.com/1.1/statuses/filter.json",
+"lookup_url" : "https://api.twitter.com/1.1/users/lookup.json?include_entities=false&&user_id=",
+
+"path_tweets_HDD" : "/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/tweet/",
+"extention_tweets_HDD" : ".dat.gz"
+}

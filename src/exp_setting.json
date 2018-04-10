@@ -1,0 +1,31 @@
+{
+"areas" : ["tsukuba", "tokyo_23", "yokohama", "kyoto_city"],
+"TimeWindow" : 4,
+"K" : 1000,
+"test_period_comment" : "short または long",
+"test_period" : "short",
+"directory_for_follow_list" : "follow_list/",
+"directory_for_result_n_tweets" : "result_n_tweets/",
+"directory_for_result_recall" : "result_recall/",
+"mode" : ["random", "amount_of_tweets", "6TWStatistics", "18TWStatistics", "epsilon_greedy", "epsilon_alpha_greedy_static", "epsilon_alpha_greedy_dynamic"],
+"param" : {
+	"epsilon" : [0.3, 0.5, 0.7],
+	"epsilon_plus_alpha" : [0.3, 0.5, 0.7],
+	"alpha_rate" : [0.25, 0.5, 0.75, 1],
+	"start_alpha_rate" : [0, 0.25, 0.5],
+	"threshold" : [0, 0.05, 0.1],
+	"delta" : [0.01, 0.05, 0.1]
+},
+"clf" : {
+	"part_comment" : "noun or noun_verb_adjective or all",
+	"part" : "noun",
+	"clf_str_comment" : "naive_bayes or knn or svm or random_forest",
+	"clf_str" : "naive_bayes",
+	"clf_params" : {
+		"naive_bayes" : [{"alpha" : 1}],
+		"knn" : [{"k": 3, "weights": "uniform"}, {"k": 5, "weights": "uniform"}, {"k": 7, "weights": "uniform"}, {"k": 9, "weights": "uniform"}, {"k": 11, "weights": "uniform"}, {"k": 13, "weights": "uniform"}],
+		"svm" : [{"gamma": 0.1, "C": 100, "cache_size":500}, {"gamma": 0.1, "C": 1000, "cache_size":1000}, {"gamma": 0.1, "C": 10, "cache_size":1000}],
+		"random_forest" : [{"max_depth": null, "n_estimators":10}, {"max_depth": null, "n_estimators":50}, {"max_depth": null, "n_estimators":100}]
+	}
+}
+}
