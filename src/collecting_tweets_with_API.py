@@ -29,7 +29,7 @@ def collect_from_japan():
     setting = json.load(f)
     f.close()
 
-    auth = OAuth1(setting['api_key'], setting['api_secret'], setting['access_key'], setting['access_secret'])
+    auth = OAuth1(setting['api_key4'], setting['api_secret4'], setting['access_key4'], setting['access_secret4'])
     try:
         ret = requests.post(setting['filter_url'], auth=auth, stream=True, data={"locations":"122.87,24.84,153.01,46.80"})
     except Exception as e:
