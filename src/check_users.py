@@ -20,7 +20,7 @@ def lookup():
     user_list = json.load(f)
     f.close()
 
-    auth = OAuth1(setting['api_key'], setting['api_secret'], setting['access_key'], setting['access_secret'])
+    auth = OAuth1(setting['api_key4'], setting['api_secret4'], setting['access_key4'], setting['access_secret4'])
     total_requests = len(user_list)//100
     if len(user_list) % 100 > 0:
         total_requests += 1

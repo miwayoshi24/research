@@ -14,6 +14,11 @@
 "access_key3" : "875620891853373444-82s5vmhr9WTBLM7fraM258Ta9Hoq2my",
 "access_secret3" : "sT0xxeHHLOlP9rYdlOEmOAOg3wsLflAu8tMAr6b8OujPd",
 
+"api_key4" : "TAappQR4BagNtsoTbkEoX7rPy",
+"api_secret4" : "TvqSmlosY44O3wEDmeJNL3xkDVJpeySoVNMqYB1kGu9E8rFLmC",
+"access_key4" : "90519689-ijNcGq6pcqbCrWeFg2UcEIql0KKQHWVDUquNd1YBt",
+"access_secret4" : "SwDM59aqISwa6lufkTSYrSN8wuQYBcPNGS45A8O9nKKNg",
+
 "sample_url" : "https://stream.twitter.com/1.1/statuses/sample.json",
 "filter_url" : "https://stream.twitter.com/1.1/statuses/filter.json",
 "lookup_url" : "https://api.twitter.com/1.1/users/lookup.json?include_entities=false&&user_id=",
