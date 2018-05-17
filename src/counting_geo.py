@@ -1,3 +1,4 @@
+# coding:utf-8
 import gzip
 import json
 import time
@@ -10,6 +11,7 @@ def count_geo_per_file():
     f = open('setting.json', 'r')
     setting = json.load(f)
     f.close()
+    total_count = 0
 
     if not os.path.isdir('data/geo_user_count'):
         os.makedirs('data/geo_user_count')
@@ -26,6 +28,7 @@ def count_geo_per_file():
                     try:
                         obj['place']['full_name']
                         geo_cnt += 1
+                        total_count +=1
                         user_id_str = obj['user']['id_str']
                         try:
                             id_count[user_id_str] += 1
@@ -41,6 +44,7 @@ def count_geo_per_file():
             f.close()
             elapsed_time = time.time() - start
             print (('elapsed_time: {0} [sec]'.format(elapsed_time)))
+            print ('total count of geo tagged tweets in this database: %d' % total_count)
         except Exception as e:
             print(e)
 #１万６千ファイルのツイート数をカウント　geotag付きのみ　（上の結果のまとめ）
@@ -66,7 +70,8 @@ def sum_count_geo():
 
 #geotag付きのユーザーを選出
 def sellect_top_geo_users():
-    n_top_users = 30000　#３つアカウントがあったから３万とれた。ここからさらに消えたユーザーを取るためもっと余裕を持った数を入れるのがおすすめ
+    n_top_users =40000
+    #３つアカウントがあったから３万とれた。ここからさらに消えたユーザーを取るためもっと余裕を持った数を入れるのがおすすめなのでもう１アカウント作りました。
     limmit_n_geo_tweets = 2000
     f = open('data/geo_user_count/sum.json', 'r')
     for line in f:
@@ -101,6 +106,6 @@ def sellect_top_geo_users():
     f.close()
 
 if __name__ == '__main__':
-    # count_geo_per_file()
-    # sum_count_geo()
+    #count_geo_per_file()
+    #sum_count_geo()
     sellect_top_geo_users()

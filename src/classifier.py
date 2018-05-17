@@ -1,3 +1,4 @@
+# coding:utf-8
 import pymongo, io, sys, os
 from sklearn.metrics.pairwise import rbf_kernel,check_pairwise_arrays
 from sklearn.grid_search import GridSearchCV
@@ -21,6 +22,7 @@ mecab.parse('')
 from collections import Counter
 from collections import defaultdict
 from gensim import corpora, matutils,models
+
 from itertools import chain
 from pymongo.errors import ConnectionFailure
 from sklearn.svm import SVC
@@ -32,6 +34,7 @@ import random
 import json
 import time
 import matplotlib.pyplot as plt
+
 
 #bag of words を作るクラス
 class Corpus:
@@ -45,10 +48,10 @@ class Corpus:
 			# self.train_exclude = db.s_train2
 			# self.test_include = db.t_test2
 			# self.test_exclude = db.s_test2
-			self.train_include = db.train_include_tokyo_23
-			self.train_exclude = db.train_exclude_tokyo_23
-			self.test_include = db.test_include_tokyo_23
-			self.test_exclude = db.test_exclude_tokyo_23
+			self.train_include = db.train_include_tsukuba
+			self.train_exclude = db.train_exclude_tsukuba
+			self.test_include = db.test_include_tsukuba
+			self.test_exclude = db.test_exclude_tsukuba
 		elif area == 'tokyo_23':
 			self.name_ja = u'東京'
 			self.name_en = u'Tokyo'
@@ -112,7 +115,7 @@ class Corpus:
 
 	def corpus(self, contents, part):
 		ret = []
-		f = open('../data/en_stop.txt', 'r')
+		f = open('data/en_stop.txt', 'r')
 		data = f.read()
 		f.close()
 		stoplist = data.split('\n')
@@ -198,10 +201,13 @@ class Corpus:
 	def get_tweets(self, collection, part):
 		tweets = {}
 		count = 0
+
 		#for tweet in collection.find(timeout=False):
 		for tweet in collection.find():
+			print("Hola mundo")
 			tweets[count] = tweet[u'text']
 			count += 1
+
 		return self.corpus(tweets, part)
 
 	def get_tweets_test(self, id, collection, TimeWindow):
@@ -230,7 +236,7 @@ class Corpus:
 		random.shuffle(random_indices_inside)
 		random.shuffle(random_indices_outside)
 		#log fileみたいに使った順番を保存している
-		f = open('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/random_indices_'+self.area+'_'+clf_str+'_'+str(clf_param)+'_'+part+'.json', 'w')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/random_indices_'+self.area+'_'+clf_str+'_'+str(clf_param)+'_'+part+'.json', 'w')
 		json.dump({'inside': random_indices_inside, 'outside': random_indices_outside}, f)
 		f.close()
 		shuffled_tweets_inside = []
@@ -252,12 +258,12 @@ class Corpus:
 		#dictionary.save_as_text('dictionary_'+self.area+'_17000_noun.txt')
 		#dictionary.save_as_text('dictionary_'+self.area+'_city_17000_'+part+'.txt')
 		#dictionaryはこの単語と現れた単語数が格納されている
-		if not os.path.isdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary'):
+		if not os.path.isdir('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/dictionary'):
 			try:
-				os.mkdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary')
+				os.mkdir('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/dictionary')
 			except Exception as e:
 				print(str(e))
-		dictionary.save_as_text('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary/dictionary_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + clf_str + '_' + str(clf_param) + '.txt')
+		dictionary.save_as_text('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/dictionary/dictionary_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + clf_str + '_' + str(clf_param) + '.txt')
 #この作られたdictionaryからuserごとにまとめたデータセットへ適用する。
 #そのuserが発したtweetのなかにdictionaryにある言葉があればbagofwordsに追加される（？）
 
@@ -300,9 +306,11 @@ class Corpus:
 			lsi_docs[i] = lsi_model[v]
 			d = list(matutils.corpus2dense([lsi_docs[i]], num_terms=num_topics).T[0])
 			bow_list_train[i] = d
+
 		"""
 		if clf_str == 'naive_bayes':
-			classifier = MultinomialNB(alpha = clf_param['alpha'])
+			#classifier = MultinomialNB(alpha = clf_param['alpha'])
+			classifier = MultinomialNB(alpha = 1)
 		elif clf_str == 'svm':
 			classifier = SVC(kernel='rbf', gamma=clf_param['gamma'], C=clf_param['C'], probability=True, cache_size=clf_param['cache_size'])
 		elif clf_str == 'knn':
@@ -314,12 +322,12 @@ class Corpus:
 		#classifier = SVC(kernel='rbf')
 		classifier.fit(bow_list_train, labels_train)
 		#ここで学習モデルを作る
-		if not os.path.isdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model'):
+		if not os.path.isdir('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/model'):
 			try:
-				os.mkdir('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model')
+				os.mkdir('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/model')
 			except Exception as e:
 				print(str(e))
-		joblib.dump(classifier, '/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model/' + clf_str + '_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + str(clf_param)+'.pkl')
+		joblib.dump(classifier, '/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/model/' + clf_str + '_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + str(clf_param)+'.pkl')
 		self.classifier = classifier
 		print('trained')
 
@@ -361,7 +369,7 @@ class Corpus:
 		report = classification_report(labels_test, output)
 		print('area: ' + self.area + ', classifier: ' + clf_str + ', params: ' + str(clf_param) + ', part: ' + part)
 		print(report)
-		f = open('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/classification_report_' + self.area + '_' + clf_str + '_' + part + '.txt', 'a')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/classification_report_' + self.area + '_' + clf_str + '_' + part + '.txt', 'a')
 		f.write('area: ' + self.area + ', classifier: ' + clf_str + ', params: ' + str(clf_param) + ', part: ' + part + '\n')
 		f.write(report)
 		f.write('\n')
@@ -389,7 +397,7 @@ class Corpus:
 		tweets_outside = self.get_tweets(self.train_exclude, part)
 		tweets_inside = tweets_inside + self.get_tweets(self.test_include, part)
 		tweets_outside = tweets_outside + self.get_tweets(self.test_exclude, part)
-		f = open('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/random_indices_'+self.area+'_'+clf_str+'_'+str(clf_param)+'_'+part+'.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/random_indices_'+self.area+'_'+clf_str+'_'+str(clf_param)+'_'+part+'.json', 'r')
 		random_indices = json.load(f)
 		f.close()
 		shuffled_tweets_inside = []
@@ -405,7 +413,7 @@ class Corpus:
 		all_labels = [1]*len(tweets_inside) + [0]*len(tweets_outside)
 		#print(list_include)
 
-		dictionary = corpora.Dictionary.load_from_text('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/dictionary/dictionary_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + clf_str + '_' + str(clf_param) + '.txt')
+		dictionary = corpora.Dictionary.load_from_text('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/dictionary/dictionary_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + clf_str + '_' + str(clf_param) + '.txt')
 		bow_list_test = []
 		for tweet in all_tweets:
 			d = list(matutils.corpus2dense([dictionary.doc2bow(tweet)], num_terms=len(dictionary)).T[0])
@@ -414,7 +422,7 @@ class Corpus:
 			#print(len(d))
 		labels_test = all_labels
 
-		classifier = joblib.load('/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/classification/model/' + clf_str + '_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + str(clf_param)+'.pkl')
+		classifier = joblib.load('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/miwa/classification/model/' + clf_str + '_' + self.area + '_' + str(self.n_tweets_train) + '_' + part + '_' + str(clf_param)+'.pkl')
 		output_prob = classifier.predict_proba(bow_list_test)
 		#output = self.classifier.predict(bow_list_test)
 		squared_error = []

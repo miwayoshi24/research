@@ -1,3 +1,4 @@
+# coding:utf-8
 import requests
 from requests_oauthlib import OAuth1
 import json, csv
@@ -16,7 +17,7 @@ def lookup():
     setting = json.load(f)
     f.close()
 
-    f = open('data/top_geo_user_id_30000.json', 'r')
+    f = open('data/top_geo_user_id_40000.json', 'r')
     user_list = json.load(f)
     f.close()
 
@@ -48,7 +49,7 @@ def make_existing_user_list():
     for user in co.find(no_cursor_timeout=True):
         user_list_from_lookups.append(user['id_str'])
 
-    f = open('data/top_geo_existing_user_id_30000.json', 'w')
+    f = open('data/top_geo_existing_user_id_40000.json', 'w')
     json.dump(user_list_from_lookups, f)
     f.close()
 

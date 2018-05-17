@@ -23,6 +23,6 @@
 "filter_url" : "https://stream.twitter.com/1.1/statuses/filter.json",
 "lookup_url" : "https://api.twitter.com/1.1/users/lookup.json?include_entities=false&&user_id=",
 
-"path_tweets_HDD" : "/media/nakagawa/2b0062cf-538a-43cf-b821-c79096888e06/tweet/",
+"path_tweets_HDD" : "/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/tweet_service/",
 "extention_tweets_HDD" : ".dat.gz"
 }

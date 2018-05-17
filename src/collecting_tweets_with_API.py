@@ -1,3 +1,4 @@
+# coding:utf-8
 import json
 import sys
 import time
@@ -54,11 +55,11 @@ def collect_from_japan():
 def collect_from_follow_users():
     #Si arg es 0 quiere decir indexes[0], por tanto se elige el 0
     #Si arg es 1 es 5000 en este caso
-    indexes = [0, 5000, 10000, 15000, 20000, 25000]
+    indexes = [0, 5000, 10000, 15000, 20000, 25000, 30000, 35000]
     client = pymongo.MongoClient('localhost', 27017)
     db = client.Tweets
     #並行してやるAPIの数だけコレクションも増える、個別に格納している
-    collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3]
+    collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3, db.tweets_from_follow_users4, db.tweets_from_follow_users5, db.tweets_from_follow_users6, db.tweets_from_follow_users7 ]
     arg = int(sys.argv[1]) #コマンド例： python collecting_tweets_with_API.py 0
 
     co = collections[arg]
@@ -68,7 +69,7 @@ def collect_from_follow_users():
     setting = json.load(f)
     f.close()
 
-    f = open('data/top_geo_existing_user_id_30000.json', 'r')
+    f = open('data/top_geo_existing_user_id_40000.json', 'r')
     user_list = json.load(f)
     f.close()
     if arg < 0:
@@ -80,8 +81,10 @@ def collect_from_follow_users():
         auth = OAuth1(setting['api_key2'], setting['api_secret2'], setting['access_key2'], setting['access_secret2'])
     elif arg < 6:
         auth = OAuth1(setting['api_key3'], setting['api_secret3'], setting['access_key3'], setting['access_secret3'])
+    elif arg < 8:
+        auth = OAuth1(setting['api_key4'], setting['api_secret4'], setting['access_key4'], setting['access_secret4'])
     else:
-        print('require arg < 6')
+        print('require arg < 8')
         sys.exit()
     try:
         # Por ejemplo: argが０だったら１から５千万めまでのユーザーのツイートをずっと取る
@@ -111,20 +114,20 @@ def collect_follow_relationships():
     f = open('setting.json', 'r')
     setting = json.load(f)
     f.close()
-    url_ids = setting['ids_url']
+    url_ids = setting['lookup_url']
 
-    f = open('data/top_geo_existing_user_id_30000.json', 'r')
+    f = open('data/top_geo_existing_user_id_40000.json', 'r')
     user_list = json.load(f)
     f.close()
-    user_list = user_list[0:10000]
-
-    # user_list = user_list[10000:20000]　＃APIの数だけ並行してやりたい時　ここのコメントを外して並行に実行する
-    # user_list = user_list[20000:30000]　#Solo se puede juntar 10000 a la vez por usuario de API asi que si quiero recolectar a la par, tengo que descomentar aqui y ejecutar en otra ventana
-    auth = OAuth1(setting['api_key'], setting['api_secret'], setting['access_key'], setting['access_secret'])
+    # user_list = user_list[0:10000]
+#APIの数だけ並行してやりたい時　ここのコメントを外して並行に実行する
+    # user_list = user_list[10000:20000]
+    user_list = user_list[30000:40000] #Solo se puede juntar 10000 a la vez por usuario de API asi que si quiero recolectar a la par, tengo que descomentar aqui y ejecutar en otra ventana
+    auth = OAuth1(setting['api_key4'], setting['api_secret4'], setting['access_key4'], setting['access_secret4'])
     cnt_ids = 0
     for i, user_id in enumerate(user_list):
         print(i)
-        if cnt_ids == max_query_ids:
+        if cnt_ids == max_number_query_ids:
             time.sleep(60 * 15 + 1)
             cnt_ids = 0
         obj = {'user_id':user_id, 'followings':[]}
@@ -135,25 +138,26 @@ def collect_follow_relationships():
             obj['followings'].append(followings)
             co.save(obj)
 #エラー対策　descansa 15 minutos y vuelve a ejecutar
-        while 'errors' not in followings and 'error' not in followings and followings['next_cursor'] > 0:
-            if cnt_ids == max_query_ids:
-                time.sleep(60 * 15 + 1)
-                cnt_ids = 0
-            url_ids_tmp = url_ids + str(user_id) + '&cursor=' + followings['next_cursor_str']
-            r2 = requests.get(url_ids_tmp, auth=auth)
-            cnt_ids += 1
-            for line2 in r2.iter_lines():
-                followings = json.loads(line2)
-                obj['followings'].append(followings)
-                co.save(obj)
+        # while 'errors' not in followings and 'error' not in followings and followings['next_cursor'] > 0:
+        #     if cnt_ids == max_query_ids:
+        #         time.sleep(60 * 15 + 1)
+        #         cnt_ids = 0
+        #     url_ids_tmp = url_ids + str(user_id) + '&cursor=' + followings['next_cursor_str']
+        #     r2 = requests.get(url_ids_tmp, auth=auth)
+        #     cnt_ids += 1
+        #     for line2 in r2.iter_lines():
+        #         followings = json.loads(line2)
+        #         obj['followings'].append(followings)
+        #         co.save(obj)
 
 #新しいデータセットを収集する前にする必要がある、por ej 中川さんの手法と比較するとき
 #実験を高速化するためにjsonファイルを準備するメソッド
 def make_user_list_for_experiment():
     #start_point = datetime(2017,5,26,20)-timedelta(hours=9) #収集開始日時
-    start_point = datetime(2017,6,16,9)#-timedelta(hours=9)
+    start_point = datetime(2018,4,12,9)#-timedelta(hours=9)
     #end_point = datetime(2017,6,4,17)-timedelta(hours=9) #終了日時
-    end_point = datetime(2017,7,31,0)#-timedelta(hours=9)
+    end_point = datetime(2018,4,21,0)#-timedelta(hours=9)
+
     TimeWindow = 4
     total_W = math.ceil((end_point-start_point).total_seconds()/(60*60*TimeWindow))
     print(total_W)
@@ -163,12 +167,15 @@ def make_user_list_for_experiment():
 
     client = pymongo.MongoClient('localhost', 27017)
     db = client.Tweets
-    out = db.tweets_per_user4
-    tweets_collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3]
+    out = db.tweets_per_user3
+    tweets_collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3,
+    db.tweets_from_follow_users4, db.tweets_from_follow_users5, db.tweets_from_follow_users6, db.tweets_from_follow_users7]
     cnt = 0
+    user_list = []
     for col_tweets in tweets_collections:
         for tweet in col_tweets.find(no_cursor_timeout=True):
             try:
+                print(tweet['created_at']);
                 datetime_parts = tweet['created_at'].split(" ")
                 time_string = datetime_parts[5] + "-" + str(months[datetime_parts[1]]) + "-" + datetime_parts[2] + " " + datetime_parts[3]
                 time_tmp = datetime.strptime(time_string,'%Y-%m-%d %H:%M:%S')
@@ -206,7 +213,7 @@ def make_user_list_for_experiment():
                 traceback.print_tb(tb)
                 print ('e自身:' + str(e))
 
-    user_list = []
+
     for user in out.find(no_cursor_timeout=True):
         user_list.append(user['user_id'])
     #user_link2.json: alived userかつツイートを発してる人
@@ -215,7 +222,7 @@ def make_user_list_for_experiment():
     #この時点ではfuturoのtweetをobtenerできてないから不可能
     #el agrego despues de hacer todo y despues percato del error
     #pero no le pillaron como error
-    f = open('data/user_list2.json')
+    f = open('data/user_list.json', 'w')
     json.dump(user_list, f)
     f.close()
 
@@ -240,12 +247,12 @@ def make_user_list_for_experiment():
         except Exception as e:
             print(e)
 
-    f = open('data/link2.json', 'w')
+    f = open('data/link_miwa.json', 'w')
     json.dump(link_dic, f)
     f.close()
 
 if __name__ == '__main__':
-    # collect_from_japan()
-    collect_from_follow_users()
-    collect_follow_relationships()
+    #collect_from_japan()
+    #collect_from_follow_users()
+    #collect_follow_relationships()
     make_user_list_for_experiment()
