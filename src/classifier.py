@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pymongo, io, sys, os
 from sklearn.metrics.pairwise import rbf_kernel,check_pairwise_arrays
 from sklearn.grid_search import GridSearchCV
