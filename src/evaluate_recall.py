@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pymongo, io, sys, os, json
 import calendar
 
@@ -5,7 +6,7 @@ months = {}
 for i ,v in enumerate(calendar.month_abbr):
 	months[v] = i
 
-from urllib.request import urlopen
+#from urllib.request import urlopen
 import re
 from crontab import CronTab
 from datetime import datetime, timedelta
@@ -43,9 +44,9 @@ def eval_bandit():
 	print(total_W)
 
 	if test_period == 'short':
-		f = open('data/user_id_to_data_for_eval_prepared_geo2_short.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_id_to_data_for_eval_prepared_geo2_short.json', 'r')
 	elif test_period == 'long':
-		f = open('data/user_id_to_data_for_eval_prepared_geo2_long.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_id_to_data_for_eval_prepared_geo2_long.json', 'r')
 	user_id_to_data_for_eval = json.load(f)
 	f.close()
 	user_id_to_data_for_eval = user_id_to_data_for_eval.items()
@@ -58,9 +59,9 @@ def eval_bandit():
 	experiment_ids = range(start_exp_id, start_exp_id + n_exp)
 
 	if test_period == 'short':
-		f = open('data/cnt_geotag_short.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/cnt_geotag_short.json', 'r')
 	elif test_period == 'long':
-		f = open('data/cnt_geotag_long.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/cnt_geotag_long.json', 'r')
 	cnt_geotag = json.load(f)
 	f.close()
 

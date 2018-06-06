@@ -364,9 +364,9 @@ def get_result_of_experiments(experiment_id, K, test_period, gamma, total_W, are
 			top_follow = None
 
 			if test_period == 'short':
-				f = open('/var/lib/mongodb/data/user_id_to_data_for_prob_' + area + '_short.json', 'r')
+				f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_id_to_data_for_prob_' + area + '_short.json', 'r')
 			elif test_period == 'long':
-				f = open('/var/lib/mongodb/data/user_id_to_data_for_prob_' + area + '_long.json', 'r')
+				f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_id_to_data_for_prob_' + area + '_long.json', 'r')
 			user_id_to_data_for_prob_dic = json.load(f)
 			f.close()
 			user_id_to_data_for_prob = user_id_to_data_for_prob_dic.items()
@@ -498,14 +498,14 @@ def main():
 
 	user_list = []
 	if test_period == 'short':
-		f = open('/var/lib/mongodb/data/user_list.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_list.json', 'r')
 	elif test_period == 'long':
-		f = open('/var/lib/mongodb/data/user_list_long.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/user_list_long.json', 'r')
 	user_list = json.load(f)
 	f.close()
-	print(len(user_list))
+	print(len(user_list)) #最初のフォロー候補たち　
 
-	f = open('/var/lib/mongodb/data/blacklist.json', 'r')
+	f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/blacklist.json', 'r')
 	blacklist = json.load(f)
 	f.close()
 	for i, black in enumerate(blacklist):
@@ -515,9 +515,9 @@ def main():
 	print(len(user_list))
 
 	if test_period == 'short':
-		f = open('/var/lib/mongodb/data/link.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/link.json', 'r')
 	elif test_period == 'long':
-		f = open('/var/lib/mongodb/data/link_long.json', 'r')
+		f = open('/media/miwayoshi/2b0062cf-538a-43cf-b821-c79096888e06/nakagawa_backup/src/data/link_long.json', 'r')
 	following = json.load(f)
 	f.close()
 
