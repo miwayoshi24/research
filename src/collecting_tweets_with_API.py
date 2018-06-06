@@ -252,6 +252,12 @@ def make_user_list_for_experiment():
     json.dump(link_dic, f)
     f.close()
 
+# つくば市、つくば市以外のトレーニングデータをjsファイルにアウトプットする
+def make_training_data():
+     client = pymongo.MongoClient('localhost', 27017)
+     db = client.GeoTweets
+     col_geo = con.GeoTweets.geo_0530
+
 if __name__ == '__main__':
     #collect_from_japan()
     #collect_from_follow_users()

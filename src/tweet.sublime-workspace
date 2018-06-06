@@ -1,0 +1,407 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"acce",
+				"ACCESS_TOKEN_SECRET"
+			],
+			[
+				"consume",
+				"CONSUMER_SECRET\tstatement"
+			],
+			[
+				"num",
+				"numActual"
+			],
+			[
+				"a",
+				"a"
+			],
+			[
+				"r",
+				"r"
+			],
+			[
+				"print",
+				"println"
+			],
+			[
+				"ad",
+				"adj_index"
+			],
+			[
+				"adj_",
+				"adj_index"
+			],
+			[
+				"adj",
+				"adj_list"
+			],
+			[
+				"de",
+				"dequeue"
+			],
+			[
+				"qu",
+				"queue"
+			],
+			[
+				"po",
+				"postorder"
+			],
+			[
+				"o",
+				"OCCUPIED"
+			],
+			[
+				"b",
+				"B"
+			],
+			[
+				"S",
+				"System"
+			],
+			[
+				"new",
+				"new_cell"
+			],
+			[
+				"gcd",
+				"gcdEuclid"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "auto_evaluation2_prepared_geo.py",
+			"settings":
+			{
+				"buffer_size": 22557,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "auto_evaluation2.py",
+			"settings":
+			{
+				"buffer_size": 16222,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/runJava.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 27.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Upgrade/Overwrite All Packages"
+			]
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 229.0,
+		"history":
+		[
+			"import urllib2,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"python3 twitter_auto_bot.py",
+			"python",
+			"install package",
+			"java GCDIter"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/miwayoshimura/twitter_research/src"
+	],
+	"file_history":
+	[
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/anaconda/Anaconda.sublime-settings",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/Users/miwayoshimura/investigacion/src/summarize_performance.py",
+		"/Users/miwayoshimura/investigacion/src/classifier.py",
+		"/Users/miwayoshimura/Documents/programas/twitter_bot/twitter_auto_bot.py",
+		"/Users/miwayoshimura/investigacion/src/check_users.py",
+		"/Users/miwayoshimura/Documents/twitter/timeline.py",
+		"/Users/miwayoshimura/Documents/twitter/tweet_crawler.py",
+		"/Users/miwayoshimura/Documents/twitter/tweet/53342.json",
+		"/Users/miwayoshimura/Documents/programas/Perimetro.java",
+		"/Users/miwayoshimura/Documents/programas/Perimeter.java",
+		"/Users/miwayoshimura/Documents/programas/Pascal.java",
+		"/Users/miwayoshimura/Documents/programas/Solution.java",
+		"/Users/miwayoshimura/Documents/programas/EntradaJava.java",
+		"/Users/miwayoshimura/Documents/programas/NumeroOutput.java",
+		"/Users/miwayoshimura/Documents/programas/exam.html",
+		"/Users/miwayoshimura/Documents/programas/Sort.java",
+		"/Users/miwayoshimura/Documents/programas/List.java",
+		"/Users/miwayoshimura/Documents/programas/Cola.java",
+		"/Users/miwayoshimura/Documents/proyecto/copia_data.json",
+		"/Users/miwayoshimura/Documents/miwayoshi/index.html",
+		"/Users/miwayoshimura/Documents/proyecto/copia.json",
+		"/Users/miwayoshimura/Downloads/CidadesDoBrasil.sql",
+		"/Users/miwayoshimura/Dropbox/INVESTIGACION ROYA/datos EMBRAPA/brasil.sql",
+		"/Users/miwayoshimura/Documents/programas/BinaryTree.java",
+		"/Users/miwayoshimura/Documents/programas/matriz.c",
+		"/Users/miwayoshimura/Documents/programas/Node.java",
+		"/Users/miwayoshimura/Documents/programas/QueueArray.java",
+		"/Users/miwayoshimura/Documents/programas/NodeQueue.java",
+		"/Users/miwayoshimura/Documents/programas/DictOpenAddr2.java",
+		"/Users/miwayoshimura/Documents/programas/DictData.java",
+		"/Users/miwayoshimura/Documents/programas/DictOpenAddr.java",
+		"/Users/miwayoshimura/Documents/programas/GCDEuclid.java",
+		"/Users/miwayoshimura/Documents/programas/GCDIter.java",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/euclides.java",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/gcd.c",
+		"/Users/miwayoshimura/Desktop/gcd.c",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/Programa.java",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/Gcd.java",
+		"/Users/miwayoshimura/Library/Application Support/Sublime Text 3/Packages/User/runJava.sublime-build"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "auto_evaluation2_prepared_geo.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22557,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 26.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "auto_evaluation2.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 16222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 125.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/runJava.sublime-build",
+	"project": "tweet.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/twitter_research/src/tweet.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 275.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}
