@@ -257,6 +257,39 @@ def make_training_data():
      db = client.GeoTweets
      col_geo = con.GeoTweets.geo_0530
 
+     for area in areas:
+        if area == 'tsukuba':
+            name_ja = 'つくば'
+            name_en = 'Tsukuba'
+        elif area == 'tokyo_23':
+            name_ja = '東京'
+            name_en = 'Tokyo'
+            sub_ja = '区'
+            sub_en = '-ku'
+        elif area == 'kyoto_city':
+            name_ja = '京都'
+            name_en = 'Kyoto'
+            sub_ja = '区'
+            sub_en = '-ku'
+        elif area == 'yokohama':
+            name_ja = '横浜'
+            name_en = 'Yokohama'
+            
+    for tweet in col_geo.find():
+            location = tweet['place']['full_name']
+            if area == 'tokyo_23' or area == 'kyoto_city':
+                if (name_ja in location and sub_ja in location) or (name_en in location and sub_en in location):
+                    q_count += 1
+                count -= 1
+                if count == 0:
+                    break
+            else:
+                if name_ja in location or name_en in location:
+                    q_count += 1
+                count -= 1
+                if count == 0:
+                    break
+
 if __name__ == '__main__':
     #collect_from_japan()
     #collect_from_follow_users()

@@ -198,17 +198,17 @@ class Corpus:
 			ret.append(list)
 		return ret
 
+	#part = noun
 	def get_tweets(self, collection, part):
 		tweets = {}
 		count = 0
 
 		#for tweet in collection.find(timeout=False):
 		for tweet in collection.find():
-			print("Hola mundo")
 			tweets[count] = tweet[u'text']
 			count += 1
-
-		return self.corpus(tweets, part)
+#aca lo que le pasa como parametro es un arreglo(tweets) con solo texto y manda al metodo corpus 
+		return self.corpus(tweets, part) 
 
 	def get_tweets_test(self, id, collection, TimeWindow):
 		tweets = {}
@@ -247,9 +247,9 @@ class Corpus:
 			shuffled_tweets_outside.append(tweets_outside[rnd_i])
 		self.tweets_inside = shuffled_tweets_inside
 		self.tweets_outside = shuffled_tweets_outside
-		tweets_inside = self.tweets_inside[:-3000]
+		tweets_inside = self.tweets_inside[:-3000] #esto quiere decir que los ultimos 3000 no esta incluido en el arreglo. Desde el primer elemento hasta el n-3000 (menos los ultimoos 3000) 
 		tweets_outside = self.tweets_outside[:-3000]
-		all_tweets = tweets_inside + tweets_outside
+		all_tweets = tweets_inside + tweets_outside #y mezcla en uno solo
 		self.n_tweets_train = len(all_tweets)
 		all_labels = [1]*len(tweets_inside) + [0]*len(tweets_outside)
 		dictionary = corpora.Dictionary(all_tweets)
