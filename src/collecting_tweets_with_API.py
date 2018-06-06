@@ -59,7 +59,8 @@ def collect_from_follow_users():
     client = pymongo.MongoClient('localhost', 27017)
     db = client.Tweets
     #並行してやるAPIの数だけコレクションも増える、個別に格納している
-    collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3, db.tweets_from_follow_users4, db.tweets_from_follow_users5, db.tweets_from_follow_users6, db.tweets_from_follow_users7 ]
+    collections = [db.tweets_from_follow_users0, db.tweets_from_follow_users1, db.tweets_from_follow_users2 ,db.tweets_from_follow_users3,
+    db.tweets_from_follow_users4, db.tweets_from_follow_users5, db.tweets_from_follow_users6, db.tweets_from_follow_users7 ]
     arg = int(sys.argv[1]) #コマンド例： python collecting_tweets_with_API.py 0
 
     co = collections[arg]
